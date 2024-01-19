@@ -9,7 +9,7 @@ class ApartmentController {
 
     store = async (req, res, next) => {
         try {
-            req.body.cover = req.file.filename;
+            req.body.cover = req.filename;
             await Apartment.create(req.body);
             res.redirect('/');
         } catch (error) {
@@ -39,7 +39,7 @@ class ApartmentController {
         try {
             const formData = req.body;
             const fileName = req.file.filename;
-            await Apartment.updateOne({_id: req.params.id}, { ...formData, cover: fileName });
+            await Apartment.updateOne({_id: req.params.id}, { ...formData, cover: fileName }); //speard operator
             res.redirect('/')
         } catch (error) {
             console.log(error);

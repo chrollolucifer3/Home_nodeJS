@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+//Định nghĩa Schema
 const Apartment = new mongoose.Schema({
     title: {type: String},
     description: {type: String},

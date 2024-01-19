@@ -25,7 +25,7 @@ const tokenParser = async (req, res, next) => {
 
 //sử dụng để cập nhật cookie avatar mỗi khi phản hồi
 const setAvatarCookie = (res, avatar) => {
-    res.cookie('userAvatar', avatar);
+    res.cookie('avatar', avatar);
 };
 
 module.exports = tokenParser;

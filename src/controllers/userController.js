@@ -32,6 +32,7 @@ class UserController {
                 role: req.body.role,
                 avatar: req.filename
             });
+
             res.redirect('/');
         } catch (error) {
             console.log(error);
@@ -47,8 +48,8 @@ class UserController {
                     const hashedPassword = hmac.update(req.body.password).digest('hex');
     
                     if (hashedPassword === dbUser.password) { 
-                        const token = jwt.sign({ username: dbUser.username, role: dbUser.role, avatar: dbUser.avatar }, config.secretKey);
-                        res.cookie('token', token);
+                        const token = jwt.sign({ username: dbUser.username, role: dbUser.role, avatar: dbUser.avatar }, config.secretKey); 
+                        res.cookie('token', token); //trình duyệt lưu trữ token và tự động gửi nó với mỗi yêu cầu tiếp theo tới server
                         if(req.body.url) {
                             res.redirect(req.body.url);
                         } else res.redirect('/');
@@ -77,7 +78,7 @@ class UserController {
 
     updatePass = async (req, res, next) => {
         try {
-            const {currentPassword, newPassword, confirmNewPassword  } = req.body;
+            const { currentPassword, newPassword, confirmNewPassword  } = req.body;
             const dbUser = await User.findOne({username: req.username});
             
             const hmac = crypto.createHmac('sha256', dbUser.salt);
